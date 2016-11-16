@@ -1,7 +1,7 @@
 FROM ubuntu
 MAINTAINER mukki
 RUN  apt-get update
-RUN  apt-get -y upgrade 
+RUN  apt-get -y upgrade git 
 RUN  apt-get -y install apache2 mysql-client  libapache2-mod-perl2 libcurl4-openssl-dev libssl-dev  libapr1-dev libaprutil1-dev libmysqlclient-dev libmagickcore-dev libmagickwand-dev curl git-core  patch build-essential bison zlib1g-dev libssl-dev libxml2-dev libxml2-dev sqlite3 libsqlite3-dev autotools-dev libxslt1-dev libyaml-0-2 autoconf automake libreadline6-dev libyaml-dev libtool imagemagick apache2-utils ssh zip libicu-dev libssh2-1 libssh2-1-dev cmake libgpg-error-dev subversion libapache2-svn
 RUN  apt-get -y install subversion libapache2-svn
 RUN  mkdir -p /var/lib/svn
@@ -9,11 +9,12 @@ RUN  chown -R www-data:www-data /var/lib/svn
 RUN  a2enmod dav_svn
 #RUN  rm -f /etc/apache2/mods-enabled/dav_svn.conf
 WORKDIR  /tmp/redmine/
-ADD dav_svn.conf /etc/apache2/mods-enabled/
-ADD  dav_svn.passwd /etc/apache2/
+RUN git clone https://github.com/mukendra/redmine.git /opt
+RUN cp /opt/dav_svn.conf /etc/apache2/mods-enabled/
+RUN cp /opt/dav_svn.passwd /etc/apache2/
 RUN  svnadmin create --fs-type fsfs /var/lib/svn/my_repository
 RUN chown -R www-data:www-data /var/lib/svn
-ADD  dav_svn.authz /etc/apache2/
+RUN cp /opt/dav_svn.authz /etc/apache2/
 RUN  apt-get -y install  software-properties-common
 RUN  add-apt-repository ppa:brightbox/ruby-ng
 RUN  apt-get update
@@ -36,7 +37,7 @@ RUN  chown -R www-data:www-data /usr/share/redmine
 RUN chown www-data /usr/share/redmine/config/environment.rb
 RUN  ln -s /usr/share/redmine/public /var/www/html/redmine
 WORKDIR  /tmp/redmine
-ADD  database.yml /usr/share/redmine/config/
+RUN cp /opt/database.yml /usr/share/redmine/config/
 WORKDIR /usr/share/redmine/
 RUN  bundle install --without development test postgresql sqlite
 RUN  rake generate_secret_token
@@ -47,7 +48,7 @@ RUN  chmod -R 755 files log tmp public/plugin_assets
 RUN  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
 RUN apt-get -y install apt-transport-https ca-certificates
 WORKDIR /tmp/redmine
-ADD  passenger.list /etc/apt/sources.list.d/
+RUN cp /opt/passenger.list /etc/apt/sources.list.d/
 RUN  chown www-data:www-data /etc/apt/sources.list.d/passenger.list
 RUN  chown root: /etc/apt/sources.list.d/passenger.list
 RUN  chmod 777 /etc/apt/sources.list.d/passenger.list
@@ -55,11 +56,11 @@ RUN  apt-get update
 RUN apt-get -y install libapache2-mod-passenger
 RUN rm -f /etc/apache2/mods-available/passenger.conf
 WORKDIR /tmp/redmine
-ADD  passenger.conf /etc/apache2/mods-available/
-ADD  default.conf /etc/apache2/sites-available/
+RUN cp /opt/passenger.conf /etc/apache2/mods-available/
+RUN cp /opt/default.conf /etc/apache2/sites-available/
 RUN a2enmod passenger
 RUN  a2ensite default.conf
 RUN a2dissite 000-default.conf
-ADD configuration.yml /usr/share/redmine/config/
+RUN cp /opt/configuration.yml /usr/share/redmine/config/
 EXPOSE 80
 ENTRYPOINT service apache2 restart && sleep 3600
