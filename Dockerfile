@@ -37,6 +37,7 @@ RUN  chown -R www-data:www-data /usr/share/redmine
 RUN chown www-data /usr/share/redmine/config/environment.rb
 RUN  ln -s /usr/share/redmine/public /var/www/html/redmine
 WORKDIR  /tmp/redmine
+RUN apt-get install -y nano 
 RUN cp /opt/database.yml /usr/share/redmine/config/
 WORKDIR /usr/share/redmine/
 RUN  bundle install --without development test postgresql sqlite
