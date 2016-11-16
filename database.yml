@@ -5,10 +5,10 @@
 
 production:
   adapter: mysql2
-  database: worddb
+  database: redmine
   host: 192.168.1.63
-  username: wordpress
-  password: password
+  username: redmine
+  password: root
   encoding: utf8
 
 development:
