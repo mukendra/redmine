@@ -1,0 +1,10 @@
+production:
+  delivery_method: :smtp
+  smtp_settings:
+    tls: true
+    address: "smtp.gmail.com"
+    port: '465'
+    domain: "smtp.gmail.com"
+    authentication: :plain
+    user_name: "mukendrakumar16@gmail.com"
+    password: "mukendra@kumar"
