@@ -8,13 +8,13 @@ RUN  mkdir -p /var/lib/svn
 RUN  chown -R www-data:www-data /var/lib/svn
 RUN  a2enmod dav_svn
 #RUN  rm -f /etc/apache2/mods-enabled/dav_svn.conf
-RUN git clone 
+RUN git clone https://github.com/mukendra/redmine.git /opt
 WORKDIR  /tmp/redmine/
-ADD dav_svn.conf /etc/apache2/mods-enabled/
-ADD  dav_svn.passwd /etc/apache2/
+RUN cp /opt/dav_svn.conf /etc/apache2/mods-enabled/
+RUN cp /opt/dav_svn.passwd /etc/apache2/
 RUN  svnadmin create --fs-type fsfs /var/lib/svn/my_repository
 RUN chown -R www-data:www-data /var/lib/svn
-ADD  dav_svn.authz /etc/apache2/
+RUN cp /opt/dav_svn.authz /etc/apache2/
 RUN  apt-get -y install  software-properties-common
 RUN  add-apt-repository ppa:brightbox/ruby-ng
 RUN  apt-get update
@@ -38,7 +38,7 @@ RUN  chown -R www-data:www-data /usr/share/redmine
 RUN chown www-data /usr/share/redmine/config/environment.rb
 RUN  ln -s /usr/share/redmine/public /var/www/html/redmine
 WORKDIR  /tmp/redmine
-ADD  database.yml /usr/share/redmine/config/
+RUN cp /opt/database.yml /usr/share/redmine/config/
 WORKDIR /usr/share/redmine/
 RUN  bundle install --without development test postgresql sqlite
 RUN  rake generate_secret_token
