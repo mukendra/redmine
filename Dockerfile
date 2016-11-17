@@ -18,12 +18,12 @@ RUN cp /opt/dav_svn.authz /etc/apache2/
 RUN  apt-get -y install  software-properties-common
 RUN  add-apt-repository ppa:brightbox/ruby-ng
 RUN  apt-get update
-RUN apt-get -y install ruby2.1 ruby-switch ruby2.1-dev ri2.1 libruby2.1 libssl-d                                                                                        ev zlib1g-dev
+RUN apt-get -y install ruby2.1 ruby-switch ruby2.1-dev ri2.1 libruby2.1 libssl-dev zlib1g-dev
 RUN  ruby-switch --set ruby2.1
-RUN  gpg --keyserver hkp://pgp.mit.edu --recv-keys 409B6B1796C275462A1703113804B                                                                                        B82D39DC0E3
+RUN  gpg --keyserver hkp://pgp.mit.edu --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 RUN  curl -sSL https://get.rvm.io | bash -s stable
-RUN  apt-get -y install ruby1.9.3 ruby1.9.1-dev ri1.9.1 libruby1.9.1 libssl-dev                                                                                         zlib1g-dev
-RUN  update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby1.9.1 400 --s                                                                                        lave   /usr/share/man/man1/ruby.1.gz ruby.1.gz /usr/share/man/man1/ruby1.9.1.1.g                                                                                        z --slave   /usr/bin/ri ri /usr/bin/ri1.9.1  --slave   /usr/bin/irb irb /usr/bin                                                                                        /irb1.9.1 --slave   /usr/bin/rdoc rdoc /usr/bin/rdoc1.9.1
+RUN  apt-get -y install ruby1.9.3 ruby1.9.1-dev ri1.9.1 libruby1.9.1 libssl-devzlib1g-dev
+RUN  update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby1.9.1 400 --slave   /usr/share/man/man1/ruby.1.gz ruby.1.gz /usr/share/man/man1/ruby1.9.1.1.g                                                                                        z --slave   /usr/bin/ri ri /usr/bin/ri1.9.1  --slave   /usr/bin/irb irb /usr/bin                                                                                        /irb1.9.1 --slave   /usr/bin/rdoc rdoc /usr/bin/rdoc1.9.1
 RUN  gem update
 RUN apt-get install imagemagick libmagickcore-dev libmagickwand-dev
 RUN  gem install bundler
