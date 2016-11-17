@@ -2,7 +2,7 @@ FROM ubuntu
 MAINTAINER mukki
 RUN  apt-get update
 RUN  apt-get -y upgrade git
-RUN  apt-get -y install apache2 mysql-client  libapache2-mod-perl2 libcurl4-open                                                                                        ssl-dev libssl-dev  libapr1-dev libaprutil1-dev libmysqlclient-dev libmagickcore                                                                                        -dev libmagickwand-dev curl git-core  patch build-essential bison zlib1g-dev lib                                                                                        ssl-dev libxml2-dev libxml2-dev sqlite3 libsqlite3-dev autotools-dev libxslt1-de                                                                                        v libyaml-0-2 autoconf automake libreadline6-dev libyaml-dev libtool imagemagick                                                                                         apache2-utils ssh zip libicu-dev libssh2-1 libssh2-1-dev cmake libgpg-error-dev                                                                                         subversion libapache2-svn
+RUN  apt-get -y install apache2 mysql-client  libapache2-mod-perl2 libcurl4-openssl-dev libssl-dev  libapr1-dev libaprutil1-dev libmysqlclient-dev libmagickcore-dev libmagickwand-dev curl git-core  patch build-essential bison zlib1g-dev libssl-dev libxml2-dev libxml2-dev sqlite3 libsqlite3-dev autotools-dev libxslt1-dev libyaml-0-2 autoconf automake libreadline6-dev libyaml-dev libtool imagemagick  apache2-utils ssh zip libicu-dev libssh2-1 libssh2-1-dev cmake libgpg-error-dev subversion libapache2-svn
 RUN  apt-get -y install subversion libapache2-svn
 RUN  mkdir -p /var/lib/svn
 RUN  chown -R www-data:www-data /var/lib/svn
