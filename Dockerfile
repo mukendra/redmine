@@ -8,6 +8,7 @@ RUN  mkdir -p /var/lib/svn
 RUN  chown -R www-data:www-data /var/lib/svn
 RUN  a2enmod dav_svn
 #RUN  rm -f /etc/apache2/mods-enabled/dav_svn.conf
+RUN git clone 
 WORKDIR  /tmp/redmine/
 ADD dav_svn.conf /etc/apache2/mods-enabled/
 RUN wget 
