@@ -39,7 +39,6 @@ RUN  ln -s /usr/share/redmine/public /var/www/html/redmine
 WORKDIR  /tmp/redmine
 RUN cp /opt/database.yml /usr/share/redmine/config/
 WORKDIR /usr/share/redmine/
-RUN apt-get install ruby-dev
 RUN gem install pdfbeads
 RUN  bundle install --without development test postgresql sqlite
 RUN  rake generate_secret_token
