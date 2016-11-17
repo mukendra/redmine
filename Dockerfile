@@ -11,7 +11,6 @@ RUN  a2enmod dav_svn
 RUN git clone https://github.com/mukendra/redmine.git /opt
 WORKDIR  /tmp/redmine/
 RUN cp /opt/dav_svn.conf /etc/apache2/mods-enabled/
-RUN wget 
 RUN cp /opt/dav_svn.passwd /etc/apache2/
 RUN  svnadmin create --fs-type fsfs /var/lib/svn/my_repository
 RUN chown -R www-data:www-data /var/lib/svn
