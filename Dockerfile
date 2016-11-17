@@ -40,6 +40,7 @@ WORKDIR  /tmp/redmine
 RUN cp /opt/database.yml /usr/share/redmine/config/
 WORKDIR /usr/share/redmine/
 RUN gem install redcarpet
+RUN gem install rmagick
 RUN  bundle install --without development test postgresql sqlite
 RUN  rake generate_secret_token
 RUN  rake db:migrate RAILS_ENV=production
