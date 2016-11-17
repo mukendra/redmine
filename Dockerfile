@@ -39,7 +39,7 @@ RUN  ln -s /usr/share/redmine/public /var/www/html/redmine
 WORKDIR  /tmp/redmine
 RUN cp /opt/database.yml /usr/share/redmine/config/
 WORKDIR /usr/share/redmine/
-RUN gem install pdfbeads
+RUN apt-get install imagemagick libmagickcore-dev libmagickwand-dev
 RUN  bundle install --without development test postgresql sqlite
 RUN  rake generate_secret_token
 RUN  rake db:migrate RAILS_ENV=production
