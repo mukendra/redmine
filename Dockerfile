@@ -62,6 +62,6 @@ ADD  default.conf /etc/apache2/sites-available/
 RUN a2enmod passenger
 RUN  a2ensite default.conf
 RUN a2dissite 000-default.conf
-ADD configuration.yml /usr/share/redmine/config/
+RUN cp /opt/configuration.yml /usr/share/redmine/config/
 EXPOSE 80
 ENTRYPOINT service apache2 restart && sleep 3600
