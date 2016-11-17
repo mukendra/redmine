@@ -43,7 +43,7 @@ WORKDIR /usr/share/redmine/
 RUN  bundle install --without development test postgresql sqlite
 RUN  rake generate_secret_token
 RUN  rake db:migrate RAILS_ENV=production
-RUN RAILS_ENV=production REDMINE_LANG=fr bundle exec rake redmine:load_default_d                                                                                        ata
+RUN RAILS_ENV=production REDMINE_LANG=fr bundle exec rake redmine:load_default_data
 RUN  chown -R www-data:www-data files log tmp public/plugin_assets
 RUN  chmod -R 755 files log tmp public/plugin_assets
 RUN  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
